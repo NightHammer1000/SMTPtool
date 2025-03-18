@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <assemblyIdentity version="1.0.0.0" name="MyApplication.app" />
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
@@ -28,7 +28,13 @@
     <application>
       <!-- Eine Liste aller Windows-Versionen, mit denen die Anwendung kompatibel ist. Windows wählt automatisch die am stärksten kompatible Umgebung aus.-->
       <!-- Wenn die Anwendung mit Windows 7 kompatibel ist, heben Sie die Kommentierung des folgenden supportedOS-Knotens auf.-->
-      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>-->
+      <supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>
+      <supportedOS Id="{4e0f9f7a-5d96-4fbd-8e2d-a2440225f93a}"/>
+      <supportedOS Id="{6e0f9f7a-5d96-4fbd-8e2d-a2440225f93a}"/>
+      <supportedOS Id="{8e0f9f7a-5d96-4fbd-8e2d-a2440225f93a}"/>
+      <supportedOS Id="{a0f9f7a-5d96-4fbd-8e2d-a2440225f93a}"/>
+      <supportedOS Id="{c0f9f7a-5d96-4fbd-8e2d-a2440225f93a}"/>
+      <supportedOS Id="{e0f9f7a-5d96-4fbd-8e2d-a2440225f93a}"/>
     </application>
   </compatibility>
   <!-- Designs für allgemeine Windows-Steuerelemente und -Dialogfelder (Windows XP und höher) aktivieren -->

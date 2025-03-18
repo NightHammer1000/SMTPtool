@@ -1,8 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Net.Mail;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
@@ -11,6 +10,8 @@ using SMTPtestTool;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace SMTPtool
 {
@@ -21,55 +22,14 @@ namespace SMTPtool
         int mailNumber = 0;
         int maxMailCount = 1;
 
-        List<MailMessage> mailList = new List<MailMessage>();
+        List<MimeMessage> mailList = new List<MimeMessage>();
 
         internal void Init(int port, String server, Main linkToMain)
         {
-            //this.mailTab = mailTab;
             this.linkToMain = linkToMain;
             client = new SmtpClient();
-            client.Port = port;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Host = server;
-            client.EnableSsl = false;
-            
-            /*
-            ServicePointManager.ServerCertificateValidationCallback =
-            delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-            { return true; };
-            */
-            //ServicePointManager.ServerCertificateValidationCallback = MyRemoteCertificateValidationCallback;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls;
-             
-        }
-
-        bool MyRemoteCertificateValidationCallback(System.Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        {
-            bool isOk = true;
-            // If there are errors in the certificate chain, look at each error to determine the cause.
-            if (sslPolicyErrors != SslPolicyErrors.None)
-            {
-                for (int i = 0; i < chain.ChainStatus.Length; i++)
-                {
-                    if (chain.ChainStatus[i].Status != X509ChainStatusFlags.RevocationStatusUnknown)
-                    {
-                        chain.ChainPolicy.RevocationFlag = X509RevocationFlag.EntireChain;
-                        chain.ChainPolicy.RevocationMode = X509RevocationMode.Online;
-                        chain.ChainPolicy.UrlRetrievalTimeout = new TimeSpan(0, 1, 0);
-                        chain.ChainPolicy.VerificationFlags = X509VerificationFlags.AllFlags;
-                        bool chainIsValid = chain.Build((X509Certificate2)certificate);
-                        if (!chainIsValid)
-                        {
-                            isOk = false;
-                        }
-                    }
-                }
-            }
-            return isOk;
-
+            client.Connect(server, port, false);
+            client.AuthenticationMechanisms.Remove("XOAUTH2");
         }
 
         public void Run()
@@ -127,7 +87,7 @@ namespace SMTPtool
             this.maxMailCount = maxMailCount;
         }
 
-        internal void addMailList(List<MailMessage> mailList)
+        internal void addMailList(List<MimeMessage> mailList)
         {
             this.mailList = mailList;
         }

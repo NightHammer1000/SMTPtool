@@ -18,6 +18,7 @@ using System.Text;
 using SMTPtool.helper;
 using SMTPtestTool;
 using System.Drawing;
+using System.Net.Http;
 
 
 namespace SMTPtool
@@ -77,32 +78,15 @@ namespace SMTPtool
         }
 
 
-        private void updateCheck()
+        private async void updateCheck()
         {
             statusLabel.Text = "";
             try
             {
-                HttpWebRequest myWebRequest = (HttpWebRequest)WebRequest.Create(UPDATE_URL);
-                //check if a proxy is in use
-                //if necessary use NTLM authentication
-                bool useProxy = !string.Equals(System.Net.WebRequest.DefaultWebProxy.GetProxy(new Uri(UPDATE_URL)), UPDATE_URL);
-                //Console.WriteLine(useProxy ? "Yes" : "No");
-                if (useProxy)
-                {
-                    IWebProxy proxy = myWebRequest.Proxy;
-                    string proxyuri = proxy.GetProxy(myWebRequest.RequestUri).ToString();
-                    myWebRequest.UseDefaultCredentials = true;
-                    myWebRequest.Proxy = new WebProxy(proxyuri, false);
-                    myWebRequest.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                }
-
-                String xmlResponse = "";
-                HttpWebResponse response = (HttpWebResponse)myWebRequest.GetResponse();
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-                xmlResponse = readStream.ReadToEnd();
-                response.Close();
-                readStream.Close();
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.GetAsync(UPDATE_URL);
+                response.EnsureSuccessStatusCode();
+                string xmlResponse = await response.Content.ReadAsStringAsync();
 
                 XDocument xmlDoc = XDocument.Parse(xmlResponse);
                 var newestVersionNumber = xmlDoc.Element("upgrades").Element("currentVersion").Attribute("version").Value;
