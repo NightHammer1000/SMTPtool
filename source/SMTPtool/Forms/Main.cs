@@ -19,6 +19,7 @@ using SMTPtool.helper;
 using SMTPtestTool;
 using System.Drawing;
 using System.Net.Http;
+using MailKit.Security;
 
 
 namespace SMTPtool
@@ -508,7 +509,21 @@ namespace SMTPtool
             }
         }
 
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            SecureSocketOptions secureSocketOptions = SecureSocketOptions.None;
 
+            if (chbStartTLS.Checked)
+            {
+                secureSocketOptions = SecureSocketOptions.StartTls;
+            }
+            else if (chbSSL.Checked)
+            {
+                secureSocketOptions = SecureSocketOptions.SslOnConnect;
+            }
+
+            mailTab.btnSendClicked(secureSocketOptions);
+        }
            
     }
 }

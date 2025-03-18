@@ -12,6 +12,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using MailKit.Net.Smtp;
 using MimeKit;
+using MailKit.Security;
 
 namespace SMTPtool
 {
@@ -24,11 +25,11 @@ namespace SMTPtool
 
         List<MimeMessage> mailList = new List<MimeMessage>();
 
-        internal void Init(int port, String server, Main linkToMain)
+        internal void Init(int port, String server, Main linkToMain, SecureSocketOptions secureSocketOptions)
         {
             this.linkToMain = linkToMain;
             client = new SmtpClient();
-            client.Connect(server, port, false);
+            client.Connect(server, port, secureSocketOptions);
             client.AuthenticationMechanisms.Remove("XOAUTH2");
         }
 
