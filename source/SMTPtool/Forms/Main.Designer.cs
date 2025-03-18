@@ -111,6 +111,8 @@ namespace SMTPtool
             this.statusLabelLink = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTipUpdateStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtSessionEhlo = new System.Windows.Forms.TextBox();
+            this.chbStartTLS = new System.Windows.Forms.CheckBox();
+            this.chbSSL = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nrcCount)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -334,6 +336,8 @@ namespace SMTPtool
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chbSSL);
+            this.groupBox2.Controls.Add(this.chbStartTLS);
             this.groupBox2.Controls.Add(this.chbSaveInOutbox);
             this.groupBox2.Controls.Add(this.btnDelAttachmentAll);
             this.groupBox2.Controls.Add(this.cbxTo);
@@ -984,6 +988,26 @@ namespace SMTPtool
             this.txtSessionEhlo.TabIndex = 37;
             this.txtSessionEhlo.Text = "servername";
             // 
+            // chbStartTLS
+            // 
+            this.chbStartTLS.AutoSize = true;
+            this.chbStartTLS.Location = new System.Drawing.Point(466, 81);
+            this.chbStartTLS.Name = "chbStartTLS";
+            this.chbStartTLS.Size = new System.Drawing.Size(99, 17);
+            this.chbStartTLS.TabIndex = 30;
+            this.chbStartTLS.Text = "Enable STARTTLS";
+            this.chbStartTLS.UseVisualStyleBackColor = true;
+            // 
+            // chbSSL
+            // 
+            this.chbSSL.AutoSize = true;
+            this.chbSSL.Location = new System.Drawing.Point(466, 104);
+            this.chbSSL.Name = "chbSSL";
+            this.chbSSL.Size = new System.Drawing.Size(99, 17);
+            this.chbSSL.TabIndex = 31;
+            this.chbSSL.Text = "Enable SSL";
+            this.chbSSL.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -1110,8 +1134,9 @@ namespace SMTPtool
         public Button btnSessionQuit;
         public Label lblRemailSize;
         public TextBox txtSessionEhlo;
+        public CheckBox chbStartTLS;
+        public CheckBox chbSSL;
 
         public System.EventHandler treeViewExpanded { get; set; }
     }
 }
-
