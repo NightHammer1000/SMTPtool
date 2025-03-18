@@ -29,7 +29,7 @@ For a **detailed explanation** of the tool have a look into the **[wiki](https:/
 
 
 ## Requirements
-.NET Framework 4
+.NET 8
 
 
 ## Feedback
